@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tab Organizer — Settings</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>⚙️ Tab Organizer Settings</h1>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Project Rules</h2>
+        <button id="add-project-btn" class="btn btn-primary">+ Add Project</button>
+      </div>
+      <p class="hint">Tabs are matched against project rules (URL and title) from top to bottom. First match wins.</p>
+      <div id="project-list"></div>
+    </section>
+
+    <section class="section">
+      <h2>History & Export</h2>
+      <div id="history-controls">
+        <select id="history-range">
+          <option value="7">Last 7 days</option>
+          <option value="14">Last 14 days</option>
+          <option value="30" selected>Last 30 days</option>
+          <option value="90">Last 90 days</option>
+        </select>
+        <button id="export-csv-btn" class="btn">Export CSV</button>
+        <button id="export-json-btn" class="btn">Export JSON</button>
+      </div>
+      <table id="history-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Project</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody id="history-tbody"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <!-- Edit/Add Project Modal -->
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal">
+      <h2 id="modal-title">Add Project</h2>
+      <label>
+        Project Name
+        <input type="text" id="modal-name" placeholder="e.g. My Project" />
+      </label>
+      <label>
+        Tab Group Color
+        <select id="modal-color">
+          <option value="grey">Grey</option>
+          <option value="blue" selected>Blue</option>
+          <option value="red">Red</option>
+          <option value="yellow">Yellow</option>
+          <option value="green">Green</option>
+          <option value="pink">Pink</option>
+          <option value="purple">Purple</option>
+          <option value="cyan">Cyan</option>
+          <option value="orange">Orange</option>
+        </select>
+      </label>
+      <label>
+        Match Patterns <span class="hint">(one per line, * = wildcard, matches URL & tab title)</span>
+        <textarea id="modal-patterns" rows="5" placeholder="*EMG*&#10;*Malibu3*&#10;github.com/myorg/*"></textarea>
+      </label>
+      <div class="modal-actions">
+        <button id="modal-cancel" class="btn">Cancel</button>
+        <button id="modal-save" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

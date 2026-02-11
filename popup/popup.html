@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tab Organizer</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup">
+    <header class="header">
+      <h1>📊 Tab Organizer</h1>
+      <div class="header-actions">
+        <button id="pause-btn" class="icon-btn" title="Pause/Resume tracking">▶</button>
+        <button id="settings-btn" class="icon-btn" title="Settings">⚙️</button>
+      </div>
+    </header>
+
+    <!-- Active Project -->
+    <div class="active-project" id="active-project">
+      <span class="label">Currently tracking:</span>
+      <span class="value" id="active-project-name">—</span>
+    </div>
+
+    <!-- Today's Summary -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Today</h2>
+        <button id="reset-time-btn" class="btn btn-sm" title="Reset all time data">🔄</button>
+      </div>
+      <div class="today-stats">
+        <div class="stat">
+          <span class="stat-value" id="today-total">0s</span>
+          <span class="stat-label">Time</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="tab-switch-count">0</span>
+          <span class="stat-label">Tab Switches</span>
+        </div>
+      </div>
+      <div id="today-bars" class="bar-chart"></div>
+    </section>
+
+    <!-- Tab Groups -->
+    <section class="section">
+      <h2>Tab Groups</h2>
+      <div id="tab-groups" class="tab-groups"></div>
+    </section>
+
+    <!-- Projects Management -->
+    <section class="section">
+      <h2>Projects</h2>
+      <div class="quick-add">
+        <input type="text" id="new-project-name" placeholder="Add project..." />
+        <select id="new-project-color">
+          <option value="blue">🔵</option>
+          <option value="green">🟢</option>
+          <option value="purple">🟣</option>
+          <option value="red">🔴</option>
+          <option value="yellow">🟡</option>
+          <option value="pink">🩷</option>
+          <option value="cyan">🩵</option>
+          <option value="orange">🟠</option>
+          <option value="grey">⚪</option>
+        </select>
+        <button id="add-project-btn" class="btn btn-primary btn-sm">+</button>
+      </div>
+      <div id="project-list" class="project-list"></div>
+    </section>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button id="organize-btn" class="btn btn-primary btn-full">🗂 Organize All Tabs</button>
+      <button id="clear-groups-btn" class="btn btn-danger btn-full">🗑 Clear All Groups</button>
+    </div>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
