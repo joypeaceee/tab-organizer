@@ -151,7 +151,11 @@ async function initPauseButton() {
 }
 
 function updatePauseIcon(paused) {
-  pauseBtn.textContent = paused ? "▶" : "⏸";
+  if (paused) {
+    pauseBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+  } else {
+    pauseBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+  }
   pauseBtn.title = paused ? "Resume tracking" : "Pause tracking";
 }
 
@@ -176,7 +180,7 @@ pauseBtn.addEventListener("click", async () => {
 
 organizeBtn.addEventListener("click", async () => {
   organizeBtn.disabled = true;
-  organizeBtn.textContent = "⏳ Organizing…";
+  organizeBtn.textContent = "Organizing…";
 
   try {
     await chrome.runtime.sendMessage({ action: "organizeAllTabs" });
@@ -184,11 +188,11 @@ organizeBtn.addEventListener("click", async () => {
     // ignore
   }
 
-  organizeBtn.textContent = "✅ Done!";
+  organizeBtn.textContent = "Done!";
   await refreshTabGroups();
   setTimeout(() => {
     organizeBtn.disabled = false;
-    organizeBtn.textContent = "🗂 Organize All Tabs";
+    organizeBtn.textContent = "Organize Tabs";
   }, 1200);
 });
 
@@ -196,7 +200,7 @@ organizeBtn.addEventListener("click", async () => {
 
 clearGroupsBtn.addEventListener("click", async () => {
   clearGroupsBtn.disabled = true;
-  clearGroupsBtn.textContent = "⏳ Clearing…";
+  clearGroupsBtn.textContent = "Clearing…";
 
   try {
     await chrome.runtime.sendMessage({ action: "clearAllGroups" });
@@ -204,11 +208,11 @@ clearGroupsBtn.addEventListener("click", async () => {
     // ignore
   }
 
-  clearGroupsBtn.textContent = "✅ Cleared!";
+  clearGroupsBtn.textContent = "Cleared!";
   await refreshTabGroups();
   setTimeout(() => {
     clearGroupsBtn.disabled = false;
-    clearGroupsBtn.textContent = "🗑 Clear All Groups";
+    clearGroupsBtn.textContent = "Clear Groups";
   }, 1200);
 });
 
@@ -220,8 +224,7 @@ resetTimeBtn.addEventListener("click", async () => {
   }
 
   resetTimeBtn.disabled = true;
-  const originalText = resetTimeBtn.textContent;
-  resetTimeBtn.textContent = "⏳";
+  resetTimeBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="16 12 12 8 8 12"/></svg>';
 
   try {
     await chrome.runtime.sendMessage({ action: "resetTimeData" });
@@ -229,11 +232,11 @@ resetTimeBtn.addEventListener("click", async () => {
     // ignore
   }
 
-  resetTimeBtn.textContent = "✅";
+  resetTimeBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
   await refreshTodayTime();
   setTimeout(() => {
     resetTimeBtn.disabled = false;
-    resetTimeBtn.textContent = originalText;
+    resetTimeBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>';
   }, 1200);
 });
 
@@ -263,13 +266,13 @@ async function renderProjects() {
 
     const editBtn = document.createElement("button");
     editBtn.className = "project-action-btn edit";
-    editBtn.textContent = "✏️";
+    editBtn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
     editBtn.title = "Edit";
     editBtn.addEventListener("click", () => startEditProject(proj.id));
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "project-action-btn delete";
-    deleteBtn.textContent = "🗑";
+    deleteBtn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
     deleteBtn.title = "Delete";
     deleteBtn.addEventListener("click", () => deleteProject(proj.id));
 
