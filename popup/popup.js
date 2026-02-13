@@ -103,19 +103,18 @@ async function refreshTabGroups() {
 
   try {
     const groups = await chrome.tabGroups.query({});
-    const tabs = await chrome.tabs.query({});
+    const todayData = await getTodayTime();
+    const projects = await getProjects();
 
     if (groups.length === 0) {
       tabGroupsContainer.innerHTML = '<div class="empty-state">No tab groups yet</div>';
       return;
     }
 
-    // Count tabs per group
-    const tabCounts = {};
-    for (const tab of tabs) {
-      if (tab.groupId !== -1) {
-        tabCounts[tab.groupId] = (tabCounts[tab.groupId] || 0) + 1;
-      }
+    // Build time map from project names (group titles match project names)
+    const timeMap = {};
+    for (const [projectName, seconds] of Object.entries(todayData)) {
+      timeMap[projectName.toLowerCase()] = seconds;
     }
 
     for (const group of groups) {
@@ -129,13 +128,17 @@ async function refreshTabGroups() {
       title.className = "group-title";
       title.textContent = group.title || "Untitled";
 
-      const count = document.createElement("span");
-      count.className = "group-count";
-      count.textContent = `${tabCounts[group.id] || 0} tab${(tabCounts[group.id] || 0) !== 1 ? "s" : ""}`;
+      // Get time spent on this group (match by group title = project name)
+      const groupTitle = (group.title || "").toLowerCase();
+      const timeSpent = timeMap[groupTitle] || 0;
+
+      const timeEl = document.createElement("span");
+      timeEl.className = "group-count";
+      timeEl.textContent = timeSpent > 0 ? formatTime(timeSpent) : "0s";
 
       card.appendChild(dot);
       card.appendChild(title);
-      card.appendChild(count);
+      card.appendChild(timeEl);
       tabGroupsContainer.appendChild(card);
     }
   } catch {
