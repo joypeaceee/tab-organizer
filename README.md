@@ -40,7 +40,7 @@ A Chrome extension that automatically organizes browser tabs into groups based o
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/petechu/tab-organizer.git
+   git clone https://github.com/joypeaceee/tab-organizer.git
    ```
 
 2. Open Chrome and navigate to `chrome://extensions`
@@ -56,7 +56,7 @@ A Chrome extension that automatically organizes browser tabs into groups based o
 ### Quick Start
 
 1. Click the extension icon to open the popup
-2. Add your projects using the quick-add form (e.g., "EMG", "Malibu3")
+2. Add your projects using the quick-add form (e.g., "Work", "Research", "Personal")
    - Patterns are auto-generated as `*projectname*`
 3. Click **"🗂 Organize All Tabs"** to group your tabs
 
@@ -65,8 +65,8 @@ A Chrome extension that automatically organizes browser tabs into groups based o
 Tabs are matched using wildcard patterns (`*` = any characters):
 
 | Pattern | Matches |
-|---------|---------|
-| `*EMG*` | Any tab with "EMG" in title or URL |
+|---------|---------||
+| `*Project-X*` | Any tab with "Project-X" in title or URL |
 | `github.com/*` | All GitHub pages |
 | `*meeting notes*` | Google Docs titled "Meeting Notes" |
 

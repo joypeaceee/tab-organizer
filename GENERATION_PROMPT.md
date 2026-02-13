@@ -139,7 +139,7 @@ chat.google.com/*, *google chat*, *hangouts*, *slack*, *workplace*, *teams*,
 **Modal for Add/Edit:**
 - Project name input
 - Color dropdown (all Chrome tab group colors)
-- Patterns textarea (one per line)
+- Patterns textarea (one per line, e.g., `*ProjectName*`, `github.com/myorg/*`)
 
 **History & Export Section:**
 - Date range dropdown (7/14/30/90 days)
